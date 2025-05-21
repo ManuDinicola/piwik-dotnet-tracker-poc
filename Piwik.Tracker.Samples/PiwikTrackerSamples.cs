@@ -10,7 +10,7 @@ namespace Piwik.Tracker.Samples
     internal class PiwikTrackerSamples
     {
         private const string UA = "Firefox";
-        private static readonly string PiwikBaseUrl = "http://piwik.local";
+        private static readonly string PiwikBaseUrl = "http://matomo.local";
         private static readonly int SiteId = 1;
 
         private static void Main(string[] args)

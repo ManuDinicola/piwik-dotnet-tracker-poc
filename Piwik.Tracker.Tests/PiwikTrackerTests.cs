@@ -15,7 +15,7 @@ namespace Piwik.Tracker.Tests
     internal class PiwikTrackerTests
     {
         private const string UA = "Firefox";
-        private const string PiwikBaseUrl = "http://piwik.local";
+        private const string PiwikBaseUrl = "http://matomo.local";
         private const int SiteId = 1;
         private PiwikTracker _sut;
 

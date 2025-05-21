@@ -4,13 +4,13 @@
     <id>$id$</id>
     <version>$version$</version>
     <authors>$author$</authors>
-    <summary>.NET Client for Piwik Analytics Tracking API</summary>
-    <description>The C# Tracker Client provides all features of the Piwik Javascript Tracker, such as Ecommerce Tracking, Custom Variable, Event tracking and more.</description>
+    <summary>.NET Client for Matomo (Piwik) Analytics Tracking API</summary>
+    <description>The C# Tracker Client provides all features of the Matomo (formerly Piwik) Javascript Tracker, such as Ecommerce Tracking, Custom Variable, Event tracking and more.</description>
     <language>en-US</language>
     <projectUrl>https://github.com/piwik/piwik-dotnet-tracker</projectUrl>
     <licenseUrl>https://raw.githubusercontent.com/piwik/piwik-dotnet-tracker/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://raw.githubusercontent.com/piwik/piwik-dotnet-tracker/master/logo.png</iconUrl>
-    <tags>piwik analytics tracking</tags>
+    <tags>matomo piwik analytics tracking</tags>
   </metadata>
 </package>

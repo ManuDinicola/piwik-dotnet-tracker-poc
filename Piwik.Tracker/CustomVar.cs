@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Visit Custom Variable
-    /// See http://piwik.org/docs/custom-variables/
+    /// See https://matomo.org/docs/custom-variables/
     /// </summary>
     public class CustomVar
     {

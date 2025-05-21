@@ -1,12 +1,12 @@
 ﻿// <summary>
-// Piwik - free/libre analytics platform
+// Matomo - free/libre analytics platform
 //
-// Client to record visits, page views, Goals, Ecommerce activity (product views, add to carts, Ecommerce orders) in a Piwik server.
-// This is a C# Version of the piwik.js standard Tracking API.
-// For more information, see http://piwik.org/docs/tracking-api/
+// Client to record visits, page views, Goals, Ecommerce activity (product views, add to carts, Ecommerce orders) in a Matomo server.
+// This is a C# Version of the Matomo (formerly Piwik) standard Tracking API.
+// For more information, see https://matomo.org/docs/tracking-api/
 //
-// <see href="http://piwik.org/docs/tracking-api/"/>
-// Piwik Server Api: <see href="http://developer.piwik.org/api-reference/tracking-api"/>
+// <see href="https://matomo.org/docs/tracking-api/"/>
+// Matomo Server Api: <see href="https://developer.matomo.org/api-reference/tracking-api"/>
 // </summary>
 
 namespace Piwik.Tracker
@@ -22,18 +22,18 @@ namespace Piwik.Tracker
     using System.Text.RegularExpressions;
 
     /// <summary>
-    /// PiwikTracker implements the Piwik Tracking Web API.
+    /// PiwikTracker implements the Matomo (Piwik) Tracking Web API.
     ///
     /// The PHP Tracking Client provides all features of the Javascript Tracker, such as Ecommerce Tracking, Custom Variable, Event tracking and more.
     /// Functions are named the same as the Javascript functions.
     ///
-    /// See introduction docs at: {@link http://piwik.org/docs/tracking-api/}
+    /// See introduction docs at: {@link https://matomo.org/docs/tracking-api/}
     ///
-    /// ### Example: using the PHP PiwikTracker class
+    /// ### Example: using the PHP MatomoTracker class
     ///
     /// The following code snippet is an advanced example of how to track a Page View using the Tracking API PHP client.
     ///
-    ///      $t = new PiwikTracker( $idSite = 1, 'http://example.org/piwik/');
+    ///      $t = new PiwikTracker( $idSite = 1, 'http://example.org/matomo/');
     ///
     ///      // Optional function calls
     ///      $t->setUserAgent( "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB) Firefox/3.6.6");
@@ -68,9 +68,9 @@ namespace Piwik.Tracker
     /// Usually, Ecommerce tracking is done using standard Javascript code,
     /// but it is very common to record Ecommerce interactions after the fact
     /// (for example, when payment is done with Paypal and user doesn't come back on the website after purchase).
-    /// For more information about Ecommerce tracking in Piwik, check out the documentation: Tracking Ecommerce in Piwik.
+    /// For more information about Ecommerce tracking in Matomo, check out the documentation: Tracking Ecommerce in Matomo.
     ///
-    ///      $t = new PiwikTracker( $idSite = 1, 'http://example.org/piwik/');
+    ///      $t = new PiwikTracker( $idSite = 1, 'http://example.org/matomo/');
     ///
     ///      // Force IP to the actual visitor IP
     ///      $t->setTokenAuth( $token_auth );
@@ -117,7 +117,7 @@ namespace Piwik.Tracker
 	    private const string DefaultCharsetParameterValues = "utf-8";
 
         /// <summary>
-        /// <see cref="http://developer.piwik.org/api-reference/tracking-javascript"/>
+        /// <see cref="https://developer.matomo.org/api-reference/tracking-javascript"/>
         /// </summary>
         private const string FirstPartyCookiesPrefix = "_pk_";
 
@@ -185,18 +185,18 @@ namespace Piwik.Tracker
 
         /// <summary>
         /// Builds a PiwikTracker object, used to track visits, pages and Goal conversions
-        /// for a specific website, by using the Piwik Tracking API.
+        /// for a specific website, by using the Matomo Tracking API.
         /// If the tracker is used within a web page or web controller, the following information are pre-initialised :
         /// URL Referrer, current page URL, remote IP, Accept-Language HTTP header and User-Agent HTTP header.
         /// </summary>
         /// <param name="idSite">Id site to be tracked</param>
-        /// <param name="apiUrl">"http://example.org/piwik/" or "http://piwik.example.org/". If set, will overwrite PiwikTracker.URL</param>
+        /// <param name="apiUrl">"http://example.org/matomo/" or "http://matomo.example.org/". If set, will overwrite PiwikTracker.URL</param>
         /// <exception cref="ArgumentException">apiUrl must not be null or empty</exception>
         public PiwikTracker(int idSite, string apiUrl)
         {
             if (string.IsNullOrEmpty(apiUrl))
             {
-                throw new ArgumentException("Piwik api url must not be emty or null.", nameof(apiUrl));
+                throw new ArgumentException("Matomo api url must not be empty or null.", nameof(apiUrl));
             }
             PiwikBaseUrl = FixPiwikBaseUrl(apiUrl);
             IdSite = idSite;
@@ -213,13 +213,13 @@ namespace Piwik.Tracker
         }
 
         /// <summary>
-        /// Gets the Piwik base URL, for example http://example.org/piwik/
+        /// Gets the Matomo base URL, for example http://example.org/matomo/
         /// </summary>
         public string PiwikBaseUrl { get; }
 
         /// <summary>
-        /// Gets the piwik site ID.
-        /// see: http://developer.piwik.org/api-reference/tracking-api
+        /// Gets the Matomo site ID.
+        /// see: https://developer.matomo.org/api-reference/tracking-api
         /// idsite (required) — The ID of the website we're tracking a visit/action for.
         /// </summary>
         public int IdSite { get; }
@@ -282,7 +282,7 @@ namespace Piwik.Tracker
         /// to the 'ref' first party cookie storing referral information.
         /// </summary>
         /// <param name="attributionInfo">Attribution info for the visit</param>
-        /// <see>function getAttributionInfo() in "https://github.com/piwik/piwik/blob/master/js/piwik.js"</see>
+        /// <see>function getAttributionInfo() in "https://github.com/matomo-org/matomo/blob/master/js/piwik.js"</see>
         public void SetAttributionInfo(AttributionInfo attributionInfo)
         {
             _attributionInfo = attributionInfo;
@@ -290,7 +290,7 @@ namespace Piwik.Tracker
 
         /// <summary>
         /// Sets Visit Custom Variable.
-        /// See http://piwik.org/docs/custom-variables/
+        /// See https://matomo.org/docs/custom-variables/
         /// </summary>
         /// <param name="id">Custom variable slot ID from 1-5</param>
         /// <param name="name">Custom variable name</param>
@@ -566,7 +566,7 @@ namespace Piwik.Tracker
         /// <returns></returns>
         protected string GetCookieName(string cookieName)
         {
-            // NOTE: If the cookie name is changed, we must also update the method in piwik.js with the same name.
+            // NOTE: If the cookie name is changed, we must also update the method in matomo.js/piwik.js with the same name.
             var cookieDomain = (string.IsNullOrWhiteSpace(_configCookieDomain)
                 ? GetCurrentHost()
                 : _configCookieDomain)
@@ -912,7 +912,7 @@ namespace Piwik.Tracker
         /// </summary>
         /// <see cref="DoTrackPageView"/>
         /// <param name="documentTitle">Page view name as it will appear in Piwik reports</param>
-        /// <returns>URL to piwik.php with all parameters set to track the pageview</returns>
+        /// <returns>URL to matomo.php with all parameters set to track the pageview</returns>
         public string GetUrlTrackPageView(string documentTitle = "")
         {
             var url = GetRequest(IdSite);
@@ -933,7 +933,7 @@ namespace Piwik.Tracker
         /// <param name="name">(optional) The Event's object Name (a particular Movie name, or Song name, or File name...)</param>
         /// <param name="value">(optional) The Event's value</param>
         /// <returns>
-        /// URL to piwik.php with all parameters set to track the pageview
+        /// URL to matomo.php with all parameters set to track the pageview
         /// </returns>
         /// <exception cref="ArgumentException">
         /// You must specify an Event Category name (Music, Videos, Games...). - category
@@ -974,7 +974,7 @@ namespace Piwik.Tracker
         /// <param name="contentPiece">The actual content. For instance the path to an image, video, audio, any text</param>
         /// <param name="contentTarget">(optional) The target of the content. For instance the URL of a landing page.</param>
         /// <returns>
-        /// URL to piwik.php with all parameters set to track the pageview
+        /// URL to matomo.php with all parameters set to track the pageview
         /// </returns>
         /// <exception cref="ArgumentException">You must specify a content name - contentName</exception>
         /// <see cref="DoTrackContentImpression" />
@@ -1008,7 +1008,7 @@ namespace Piwik.Tracker
         /// <param name="contentPiece">The actual content. For instance the path to an image, video, audio, any text</param>
         /// <param name="contentTarget">(optional) The target the content leading to when an interaction occurs. For instance the URL of a landing page.</param>
         /// <returns>
-        /// URL to piwik.php with all parameters set to track the pageview
+        /// URL to matomo.php with all parameters set to track the pageview
         /// </returns>
         /// <exception cref="ArgumentException">
         /// You must specify a name for the interaction - interaction
@@ -1073,7 +1073,7 @@ namespace Piwik.Tracker
         /// <see cref="DoTrackGoal"/>
         /// <param name="idGoal">Id Goal to record a conversion</param>
         /// <param name="revenue">Revenue for this conversion</param>
-        /// <returns>URL to piwik.php with all parameters set to track the goal conversion</returns>
+        /// <returns>URL to matomo.php with all parameters set to track the goal conversion</returns>
         public string GetUrlTrackGoal(int idGoal, float revenue = 0)
         {
             var url = GetRequest(IdSite);
@@ -1091,7 +1091,7 @@ namespace Piwik.Tracker
         /// <see cref="DoTrackAction"/>
         /// <param name="actionUrl">URL of the download or outlink</param>
         /// <param name="actionType">Type of the action: 'download' or 'link'</param>
-        /// <returns>URL to piwik.php with all parameters set to track an action</returns>
+        /// <returns>URL to matomo.php with all parameters set to track an action</returns>
         public string GetUrlTrackAction(string actionUrl, ActionType actionType)
         {
             var url = GetRequest(IdSite);
@@ -1447,16 +1447,15 @@ namespace Piwik.Tracker
         }
 
         /// <summary>
-        /// Returns the base URL for the piwik server.
+        /// Returns the base URL for the Matomo server.
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <returns></returns>
         private static string FixPiwikBaseUrl(string url)
         {
-            if (!url.Contains("/piwik.php") && !url.Contains("/proxy-piwik.php")
-            )
+            if (!url.Contains("/piwik.php") && !url.Contains("/matomo.php") && !url.Contains("/proxy-piwik.php"))
             {
-                url += "/piwik.php";
+                url += "/matomo.php";
             }
             return url;
         }
@@ -1468,7 +1467,7 @@ namespace Piwik.Tracker
             var customFields = _customParameters.Aggregate("",
                 (current, kvp) => current + $"&{UrlEncode(kvp.Key)}={UrlEncode(kvp.Value)}"
             );
-            // http://developer.piwik.org/api-reference/tracking-api
+            // https://developer.matomo.org/api-reference/tracking-api
             // Required parameters:
             //     idsite(required) — The ID of the website we're tracking a visit/action for.
             //     rec(required) — Required for tracking, must be set to one, eg, &rec = 1.
@@ -1635,7 +1634,7 @@ namespace Piwik.Tracker
         }
 
         /// <summary>
-        /// Sets the first party cookies as would the piwik.js
+        /// Sets the first party cookies as would the Matomo JavaScript tracker
         /// All cookies are supported: 'id' and 'ses' and 'ref' and 'cvar' cookies.
         /// </summary>
         protected void SetFirstPartyCookies()
@@ -1670,7 +1669,7 @@ namespace Piwik.Tracker
 
         /// <summary>
         /// Sets a first party cookie to the client to improve dual JS-PHP tracking.
-        /// This replicates the piwik.js tracker algorithms for consistency and better accuracy.
+        /// This replicates the Matomo JavaScript tracker algorithms for consistency and better accuracy.
         /// </summary>
         /// <param name="cookieName">Name of the cookie.</param>
         /// <param name="cookieValue">The cookie value.</param>
