@@ -19,7 +19,7 @@ namespace Piwik.Tracker.Tests
         private PiwikTracker _sut;
         private MockedHttpServer _mockedPiwikServer;
         private const string UA = "Firefox";
-        private const string PiwikBaseUrl = "http://127.0.0.1:1122/piwik.php";
+        private const string PiwikBaseUrl = "http://127.0.0.1:1122/matomo.php";
         private const int SiteId = 1;
 
         private static readonly NameValueCollection DefaultRequestParameter = new NameValueCollection

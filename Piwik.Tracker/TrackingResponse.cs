@@ -8,7 +8,7 @@ namespace Piwik.Tracker
     public class TrackingResponse
     {
         /// <summary>
-        /// Gets the HTTP status code recived from the piwik server.
+        /// Gets the HTTP status code received from the Matomo server.
         /// </summary>
         public HttpStatusCode HttpStatusCode { get; internal set; }
 
